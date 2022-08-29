@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        user-select: none;
+        transition: 1s;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      #root {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: beige;
+      }
+
+      #monster-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        width: 80%;
+        height: 100vh;
+      }
+
+      #monster-list {
+        width: 63vw;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 20px;
+        overflow-x: hidden;
+        flex-shrink: 4;
+      }
+
+      .monster-img {
+        width: 15vw;
+        height: 30vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .monster-img:nth-child(1) {
+        background: linear-gradient(
+          175deg,
+          rgb(224, 86, 224),
+          rgb(253, 184, 55)
+        );
+      }
+
+      .monster-name {
+        text-align: center;
+        border-bottom: 3px solid #ddd;
+        width: 8vw;
+        padding: 10px;
+      }
+
+      .monster-page {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+      }
+
+      #left-button > button {
+        border: none;
+        background-color: white;
+        width: 3vw;
+        height: 10vh;
+        font-size: 20px;
+        position: relative;
+        bottom: 30px;
+      }
+
+      #right-button > button {
+        border: none;
+        background-color: white;
+        width: 3vw;
+        height: 10vh;
+        font-size: 20px;
+        position: relative;
+        bottom: 30px;
+      }
+
+      .monster-guide {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div id="monster-box">
+        <div id="left-button">
+          <button>◀</button>
+        </div>
+        <div id="monster-list">
+          <div class="monster-page">
+            <div class="monster-img">No.1</div>
+            <div class="monster-name">"포켓몬"</div>
+            <div class="monster-guide">설명</div>
+          </div>
+          <div class="monster-page">
+            <div class="monster-img">No.2</div>
+            <div class="monster-name">"포켓몬"</div>
+            <div class="monster-guide">설명</div>
+          </div>
+          <div class="monster-page">
+            <div class="monster-img">No.3</div>
+            <div class="monster-name">"포켓몬"</div>
+            <div class="monster-guide">설명</div>
+          </div>
+          <div class="monster-page">
+            <div class="monster-img">No.4</div>
+            <div class="monster-name">"포켓몬"</div>
+            <div class="monster-guide">설명</div>
+          </div>
+          <div class="monster-page">
+            <div class="monster-img">No.5</div>
+            <div class="monster-name">"포켓몬"</div>
+            <div class="monster-guide">설명</div>
+          </div>
+          <div class="monster-page">
+            <div class="monster-img">No.6</div>
+            <div class="monster-name">"포켓몬"</div>
+            <div class="monster-guide">설명</div>
+          </div>
+          <div class="monster-page">
+            <div class="monster-img">No.7</div>
+            <div class="monster-name">"포켓몬"</div>
+            <div class="monster-guide">설명</div>
+          </div>
+          <div class="monster-page">
+            <div class="monster-img">No.8</div>
+            <div class="monster-name">"포켓몬"</div>
+            <div class="monster-guide">설명</div>
+          </div>
+        </div>
+        <div id="right-button">
+          <button>▶</button>
+        </div>
+      </div>
+    </div>
+    <script></script>
+  </body>
+</html>

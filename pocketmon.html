@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pocketmon</title>
+    <style>
+      * {
+        transition: 0.5s;
+        user-select: none;
+      }
+      body {
+        background-color: salmon;
+        background-size: cover;
+        background-repeat: no-repeat;
+        border: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: cente r;
+        align-items: center;
+      }
+      #root {
+        width: 95%;
+        height: 95%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        /* overflow: hidden; */
+        flex-wrap: wrap;
+        flex-direction: row;
+      }
+
+      .monsterBox {
+        width: 300px;
+        height: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 40px;
+        flex-shrink: 0;
+      }
+
+      .monsterBox:hover {
+        background-color: bisque;
+        cursor: pointer;
+      }
+
+      .monsterTop {
+        font-size: 2rem;
+        font-weight: bold;
+      }
+
+      .monsterBottom {
+        width: 90%;
+        font-size: 0.8rem;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      function widthHeight(element, width, height) {
+        element.style.width = width;
+        element.style.width = height;
+      }
+
+      let value = 0;
+      let nameArray = [];
+      let propertyArray = [];
+      let textArray = [];
+      let imageArray = [];
+      let boxArray = [];
+
+      function move() {
+        value += 0.01;
+        return value;
+        move();
+      }
+
+      function API(number) {
+        let root = document.getElementById("root");
+
+        for (let i = 1; i < number; i++) {
+          let count = 0;
+
+          const _Img_URL = `https://pokeapi.co/api/v2/pokemon-form/${i}`;
+          const requestImg = new XMLHttpRequest();
+          requestImg.open("GET", _Img_URL);
+          requestImg.responseType = "json";
+          requestImg.send();
+
+          const _BASIC_URL = `https://pokeapi.co/api/v2/pokemon-species/${i}`;
+          const request = new XMLHttpRequest();
+          request.open("GET", _BASIC_URL);
+          request.responseType = "json";
+          request.send();
+          request.addEventListener("load", () => {
+            const _POKEMON_API = request.response;
+            const _POKEMON_API_Img = requestImg.response;
+            // 상수 _POKEMON_API 데이터가 사장놈이 가져온 데이터이다.
+            // for (key in _POKEMON_API) {
+            //   console.log(_POKEMON_API);
+            // }
+
+            let name = _POKEMON_API.names;
+            let property = _POKEMON_API.genera;
+            let text = _POKEMON_API.flavor_text_entries;
+            let backImg = _POKEMON_API_Img.sprites.back_default;
+            let frontImg = _POKEMON_API_Img.sprites.front_default;
+
+            for (let i = 0; i < name.length; i++) {
+              if (name[i].language.name === "ko") {
+                nameArray.push(name[i].name);
+              }
+            }
+
+            for (let i = 0; i < property.length; i++) {
+              if (property[i].language.name === "ko") {
+                propertyArray.push(property[i].genus);
+              }
+            }
+
+            for (let i = 0; i < text.length; i++) {
+              if (text[i].language.name === "ko" && count === 0) {
+                textArray.push(text[i].flavor_text);
+                count++;
+              }
+            }
+
+            imageArray.push(frontImg);
+          });
+        }
+
+        setTimeout(() => {
+          for (let i = 0; i < number; i++) {
+            let monsterBox = document.createElement("div");
+            monsterBox.setAttribute("class", "monsterBox");
+            root.appendChild(monsterBox);
+            boxArray.push(monsterBox);
+
+            let monsterBoxTop = document.createElement("div");
+            monsterBoxTop.setAttribute("class", "monsterTop");
+            monsterBoxTop.textContent = nameArray[i];
+            monsterBox.appendChild(monsterBoxTop);
+
+            let monsterBoxMid = document.createElement("img");
+            monsterBoxMid.src = imageArray[i];
+            monsterBoxMid.ondragstart = function () {
+              return false;
+            };
+
+            if (monsterBoxMid.src === "http://127.0.0.1:5500/undefined") {
+              boxArray[i].style.display = "none";
+            }
+
+            monsterBoxMid.setAttribute("class", "monsterMid");
+            monsterBox.appendChild(monsterBoxMid);
+
+            let monsterBoxBottom = document.createElement("div");
+            monsterBoxBottom.setAttribute("class", "monsterBottom");
+            monsterBoxBottom.textContent = textArray[i];
+            monsterBox.appendChild(monsterBoxBottom);
+          }
+
+          // let moving = setInterval(() => {
+          //   for (let i = 0; i < boxArray.length; i++) {
+          //     boxArray[i].style.transform = `translateY(-${move()}px)`;
+          //   }
+          // }, 150);
+        }, 500);
+      }
+      API(10);
+    </script>
+  </body>
+</html>
